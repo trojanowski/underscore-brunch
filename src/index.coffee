@@ -11,7 +11,7 @@ module.exports = class UnderscoreCompiler
 
   compile: (data, path, callback) ->
     try
-      content = ""
+      result = ""
       templateSettings = @config.plugins?.underscore
       content = _.template(data, null, templateSettings).source
       if (content.indexOf('_.escape') !== -1)
