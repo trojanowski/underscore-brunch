@@ -11,9 +11,12 @@ module.exports = class UnderscoreCompiler
 
   compile: (data, path, callback) ->
     try
+      result = ""
       templateSettings = @config.plugins?.underscore
       content = _.template(data, null, templateSettings).source
-      result = "module.exports = #{content};"
+      if (content.indexOf('_.escape') != -1)
+        result = "var _ = require('underscore');"
+      result += "module.exports = #{content};"
     catch err
       error = err
     finally
